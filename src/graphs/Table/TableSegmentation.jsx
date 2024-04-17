@@ -7,9 +7,10 @@ import { TbEyeFilled, TbEyeOff } from 'react-icons/tb'
 
 function getMeanValues(subjects, method, scalar){
     let value = 0
+
     subjects.map((subject) => {
         return(
-            value += subject[method][scalar]
+            value += subject[method][0][scalar]
         )
     })
 
@@ -25,7 +26,6 @@ function TableSegmentation(props) {
 
     function changeShowSegmentation(type) {
         let value = document.querySelector("#showView2D").value
-        console.log(value);
     }
 
     function teste(){
@@ -38,18 +38,8 @@ function TableSegmentation(props) {
         }
     }
 
-        //if(view === "show"){
-        //    setSize(160)
-        //} else{
-        //    setSize(130)
-        //}
-
-    /* Remover depois */
-    // let joany = [0.6556650233259003, 0.248837988995943, 0.0010308019022138776, 0.0004797977367285885, 0.0006192081277246568, 0.0005655540233389842, 0.0018539894511923193, 0.0004405055082694843]
-
-
     let headers = []
-    /* Selecionando os dados */
+
     let subjects = props.data
     if(view === "show"){
         headers = ["Method", "FA", "FA StdDev","MD", "MD StdDev", "RD", "RD StdDev", "AD", "AD StdDev"]
@@ -60,11 +50,11 @@ function TableSegmentation(props) {
     let cols = [["ROQS", "CNN-Based"]]
 
     for(let i = 1; i !== headers.length; i++){
-        let v1 = getMeanValues(subjects, "ROQS_scalar", headers[i])
-        let v2 = getMeanValues(subjects, "CNN-Based", headers[i])
+        let v1 = getMeanValues(subjects, "roqs_based", headers[i])
+        let v2 = getMeanValues(subjects, "cnn_based", headers[i])
         cols.push([v1, v2])
     }
-    
+
     /* Ajustes da tabela */
     
     let layout = {width: "50%", height: size, margin: {t: 10, b: 0, l: 10, r: 10}, paper_bgcolor: props.bg_color}
@@ -93,6 +83,23 @@ function TableSegmentation(props) {
 
             <div className='table-field'>
                     
+                <div className='table-row'>
+                    <span className={`table-title ${props.color}`}>Segmentation Data <InfoTool text="Comparison of the mean values ​​obtained by segmentation in each method."/></span>
+                    <button className='btn-export'>Export</button>
+                </div>
+    
+                <Plot data={data} layout={layout}/>
+            
+                <div className='options-row'>  
+            
+                    <div className='select-group'>
+                        <label className={props.color}>Std. Dev: </label>
+
+                        <button onClick={teste} className="btn-icon">{iconEye}</button>
+
+                    </div>
+            
+                </div>
     
             </div>
         )

@@ -18,6 +18,7 @@ import { BsGear } from 'react-icons/bs'
 import { createRoot } from 'react-dom/client';
 
 import '../styles/home.scss'
+import TableSegmentation from '../graphs/Table/TableSegmentation'
 
 function showConfigs() {
     const container = document.querySelector('#modalArea');
@@ -27,8 +28,6 @@ function showConfigs() {
 }
 
 function Home() {
-
-    console.log(subjects)
 
     const [filter, setFilter] = useState("")
     const [data, setData] = useState(subjects)
@@ -114,7 +113,7 @@ function Home() {
                             <label>Segm. Method: </label>
                             <select>
                                 <option>ROQS</option>
-                                <option>Watershed</option>
+                                <option>CNN-Based</option>
                             </select>
                         </div>
 
@@ -163,6 +162,8 @@ function Home() {
                 <div id="tab3D" className='tab' onClick={() => changeView("3D")}>Volumetric Segmentation (Section 3D)</div>
 
             </div>
+
+            <View view={view} data={data} />
 
         </div>
     )

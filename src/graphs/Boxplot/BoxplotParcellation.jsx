@@ -6,7 +6,7 @@ function getScalarValues(subjects, method, parc_method, scalar, part){
 
     let name = `${parc_method}_${scalar}_${part}`
     let values = subjects.map((subject) => {
-                    return subject[method][name]
+                    return subject[method][0][name]
                 })
     return values
 }
@@ -34,11 +34,11 @@ function BoxplotParcellation(props) {
 
             <div className='boxplot-row'>
 
-                <Boxplot title="P1" watershed={getScalarValues(props.data, "Watershed_parcellation", methodParcellation, scalarParcellation, "P1")} roqs={getScalarValues(props.data, "ROQS_parcellation", methodParcellation, scalarParcellation, "P1")} width="300"/>
-                <Boxplot title="P2" watershed={getScalarValues(props.data, "Watershed_parcellation", methodParcellation, scalarParcellation, "P2")} roqs={getScalarValues(props.data, "ROQS_parcellation", methodParcellation, scalarParcellation, "P2")} width="300"/>
-                <Boxplot title="P3" watershed={getScalarValues(props.data, "Watershed_parcellation", methodParcellation, scalarParcellation, "P3")} roqs={getScalarValues(props.data, "ROQS_parcellation", methodParcellation, scalarParcellation, "P3")} width="300"/>
-                <Boxplot title="P4" watershed={getScalarValues(props.data, "Watershed_parcellation", methodParcellation, scalarParcellation, "P4")} roqs={getScalarValues(props.data, "ROQS_parcellation", methodParcellation, scalarParcellation, "P4")} width="300"/>
-                <Boxplot title="P5" watershed={getScalarValues(props.data, "Watershed_parcellation", methodParcellation, scalarParcellation, "P5")} roqs={getScalarValues(props.data, "ROQS_parcellation", methodParcellation, scalarParcellation, "P5")} width="300"/>
+                <Boxplot title="P1" roqs={getScalarValues(props.data, "roqs_based", methodParcellation, scalarParcellation, "P1")} cnn={getScalarValues(props.data, "cnn_based", methodParcellation, scalarParcellation, "P1")} width="300"/>
+                <Boxplot title="P2" roqs={getScalarValues(props.data, "roqs_based", methodParcellation, scalarParcellation, "P2")} cnn={getScalarValues(props.data, "cnn_based", methodParcellation, scalarParcellation, "P2")} width="300"/>
+                <Boxplot title="P3" roqs={getScalarValues(props.data, "roqs_based", methodParcellation, scalarParcellation, "P3")} cnn={getScalarValues(props.data, "cnn_based", methodParcellation, scalarParcellation, "P3")} width="300"/>
+                <Boxplot title="P4" roqs={getScalarValues(props.data, "roqs_based", methodParcellation, scalarParcellation, "P4")} cnn={getScalarValues(props.data, "cnn_based", methodParcellation, scalarParcellation, "P4")} width="300"/>
+                <Boxplot title="P5" roqs={getScalarValues(props.data, "roqs_based", methodParcellation, scalarParcellation, "P5")} cnn={getScalarValues(props.data, "cnn_based", methodParcellation, scalarParcellation, "P5")} width="300"/>
 
             </div>
 

@@ -13,23 +13,24 @@ parser.add_argument('-p', '--parent', nargs='*', dest='parents')
 
 args = parser.parse_args()
 
+folders_mri = args.parents  # Renomeando para folders_mri para indicar que é uma lista de pastas
+all_subjects = []
+
 path_Data = ""
 
 pre_trained_model_path = os.path.join(path_Data, "methods/CNNBased/peso/3DExperimentV2_ManualMask_FAepoch=362-val_loss=0.13.ckpt")
 
 model = LightningMRICCv2.load_from_checkpoint(pre_trained_model_path).eval().cpu()
 
-folder_mri = args.parents
-
-for folder in folder_mri:
+for folder in folders_mri:
     rename_files(folder)
 
 all_subjects = []
 
-for folder in folder_mri:
-    subjects = glob.glob(os.path.join(folder, "*"))
+for folder_mri in folders_mri:  # Iterar sobre cada pasta em folders_mri
+    subjects = glob.glob(os.path.join(folder_mri, "*"))
+
     for subject in subjects:
-#        if not os.path.exists(os.path.join(subject, "cnnBased.nii.gz")) and os.path.exists(os.path.join(subject, "cnnBased_midsagittal.nii.gz")) and os.path.exists(os.path.join(subject, "cnnBased_FA_V2.nii.gz")):
         all_subjects.append(subject)
 
 

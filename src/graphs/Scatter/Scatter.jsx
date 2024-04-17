@@ -5,10 +5,10 @@ import './Scatter.scss'
 function getAllPoints(data, method, scalar){
     let values = []
 
-    for(let i = 0; i !== data.length; i++){
-        let value = data[i][method][scalar]
-        values.push(value)
-    }
+    data.map((subject) => {
+        let v = subject[method][0][scalar]
+        values.push(v)
+    })
 
     return values
 }
@@ -28,75 +28,54 @@ function Scatter(props) {
         setScalarY(value)
     }
 
-    let watershed = {
-        x: getAllPoints(props.data, "Watershed_scalar", scalarX),
-        y: getAllPoints(props.data, "Watershed_scalar", scalarY),
-        mode: "markers",
-        type: "scatter",
-        name: "Watershed"
-    }
-
     let roqs = {
-        x: getAllPoints(props.data, "ROQS_scalar", scalarX),
-        y: getAllPoints(props.data, "ROQS_scalar", scalarY),
+        x: getAllPoints(props.data, "roqs_based", scalarX),
+        y: getAllPoints(props.data, "roqs_based", scalarY),
         mode: "markers",
         type: "scatter",
         name: "ROQS"
     }
 
     let cnn = {
-        x: getAllPoints(props.data, "santarosa_scalars", scalarX),
-        y: getAllPoints(props.data, "santarosa_scalars", scalarY),
+        x: getAllPoints(props.data, "cnn_based", scalarX),
+        y: getAllPoints(props.data, "cnn_based", scalarY),
         mode: "markers",
         type: "scatter",
         name: "CNN"
     }
 
-    let watershedHistogramX = {
-        x: getAllPoints(props.data, "Watershed_scalar", scalarX),
-        type: "histogram",
-        name: "Watershed",
-        opacity: 0.5
-    }
-
     let ROQSHistogramX = {
-        x: getAllPoints(props.data, "ROQS_scalar", scalarX),
+        x: getAllPoints(props.data, "roqs_based", scalarX),
         type: "histogram",
         name: "ROQS",
         opacity: 0.5
     }
 
     let cnnHistogramX = {
-        x: getAllPoints(props.data, "santarosa_scalars", scalarX),
+        x: getAllPoints(props.data, "cnn_based", scalarX),
         type: "histogram",
         name: "CNN",
         opacity: 0.5
     }
 
-    let watershedHistogramY = {
-        x: getAllPoints(props.data, "Watershed_scalar", scalarY),
-        type: "histogram",
-        name: "Watershed",
-        opacity: 0.5
-    }
 
     let ROQSHistogramY = {
-        x: getAllPoints(props.data, "ROQS_scalar", scalarY),
+        x: getAllPoints(props.data, "roqs_based", scalarY),
         type: "histogram",
         name: "ROQS",
         opacity: 0.5
     }
 
     let cnnHistogramY = {
-        x: getAllPoints(props.data, "santarosa_scalars", scalarY),
+        x: getAllPoints(props.data, "cnn_based", scalarY),
         type: "histogram",
         name: "CNN",
         opacity: 0.5
     }
 
-    let dataHistogramX = [watershedHistogramX, ROQSHistogramX, cnnHistogramX]
-    let dataHistogramY = [watershedHistogramY, ROQSHistogramY, cnnHistogramY]
-    let data = [watershed, roqs, cnn]
+    let dataHistogramX = [ROQSHistogramX, cnnHistogramX]
+    let dataHistogramY = [ROQSHistogramY, cnnHistogramY]
+    let data = [roqs, cnn]
     
     let layoutHistogramX = {
         barmode: "overlay",

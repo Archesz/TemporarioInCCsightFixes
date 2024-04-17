@@ -374,13 +374,15 @@ def get_segm(data_paths):
             
             sub_data = {}
 
-            names_maps = list(["name", "meanFA", "stdFA", "meanMD", "stdMD", "meanRD", "stdRD", "meanAD", "stdAD"])
+            names_maps = list(["name", "FA", "stdFA", "MD", "stdMD", "RD", "stdRD", "AD", "stdAD"])
             scalars_values = list([name,scalar_statistics[0], scalar_statistics[1], scalar_statistics[2], scalar_statistics[3], scalar_statistics[4], scalar_statistics[5], scalar_statistics[6], scalar_statistics[7]])
             
 
             for i in range(0, len(names_maps)):
                 sub_data[names_maps[i]] = scalars_values[i]
-            
+
+            print(sub_data)
+
             # Salvando os Dados
             canvas = np.zeros(wFA_v.shape, dtype='int32')
             canvas[fissure, :, :] = segmentation
@@ -391,7 +393,7 @@ def get_segm(data_paths):
             end = time.time()
             time_total = round(end - start, 2)
             times.append(time_total)
-
+            print(parcellationsList)
             gm.adjust_dict_parcellations_statistics(parcellationsList, sub_data, data_path)
 
         except:

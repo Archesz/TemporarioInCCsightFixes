@@ -7,9 +7,11 @@ import InfoTool from '../../components/InfoTool/InfoTool'
 function getMeanValues(subjects, method, parc_method, scalar, part){
     let name = `${parc_method}_${scalar}_${part}`
     let value = 0
+
     subjects.map((subject) => {
+
         return(
-            value += subject[method][name]
+            value += subject[method][0][name]
         )
     })
 
@@ -35,11 +37,11 @@ function TableParcellation(props) {
     let headers = ["Method", "P1", "P2", "P3", "P4", "P5"]
     let subjects = props.data
 
-    let cols = [["ROQS", "Watershed-Based"]]
+    let cols = [["ROQS", "CNN-Based"]]
 
     for(let i = 1; i !== headers.length; i++){
-        let v1 = getMeanValues(subjects, "ROQS_parcellation", methodParcellation, scalar, headers[i])
-        let v2 = getMeanValues(subjects, "Watershed_parcellation", methodParcellation, scalar, headers[i])
+        let v1 = getMeanValues(subjects, "roqs_based", methodParcellation, scalar, headers[i])
+        let v2 = getMeanValues(subjects, "cnn_based", methodParcellation, scalar, headers[i])
         cols.push([v1, v2])
     }
     

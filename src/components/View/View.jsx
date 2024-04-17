@@ -21,9 +21,8 @@ function View(props) {
         subjectPainel.style.display = "none"
     }
 
-
     let data = props.data
-
+    
     if(props.view === "2D"){
         return (
             <div className='view-container' id="main-area">
@@ -87,21 +86,16 @@ function View(props) {
                         <TableSegmentation data={data} type="2D"/>
                         <TableParcellation data={data} type="2D"/>
                     </div>
-                        
+                    
                     <div className='area-boxplot'>
                         <BoxplotSegmentation data={data} />
                         <BoxplotParcellation data={data} />
                     </div>
-    
+
                     <div className='area-scatter'>
                         <Scatter data={data}/>
                     </div>
-    
-                    <div className='area-midline'>
-                        <Midline data={data}/>
-                        <Radar data={data}/>
-                    </div>
-    
+
                 </div>
     
             </div>
@@ -160,7 +154,7 @@ function View(props) {
                     </div>
                     
                     <AiOutlineClose className='close-icon' onClick={closeSelect}/>
-    
+
                 </div>
     
                 <div className='area-view'>

@@ -12,6 +12,7 @@ import pandas as pd
 import time
 
 def adjust_dict_parcellations_statistics(data, subject_data, data_path):
+    print
     methods = list(data.keys())
     subjects = list(data[methods[0]].keys())
     methods_parc = list(data[methods[0]][subjects[0]])
@@ -29,6 +30,32 @@ def adjust_dict_parcellations_statistics(data, subject_data, data_path):
         
         df_sub = pd.DataFrame(subject_list)
         df_sub.to_csv(f"{data_path}/inCCsight/cnn_based.csv", sep=";")
+
+def parcellations_dfs_dicts(scalar_maps, values):
+    list_methods = ['Witelson', 'Hofer', 'Chao', 'Cover', 'Freesurfer']
+    list_regions = ['P1', 'P2', 'P3', 'P4', 'P5']
+    list_scalars = ['FA', 'FA StdDev', 'MD', 'MD StdDev', 'RD', 'RD StdDev', 'AD', 'AD StdDev']
+
+    parcel_dict = {}
+    for method in list_methods:
+        parcel_dict[method] = {}
+
+        for region in list_regions:
+            parcel_dict[method][region] = {}
+            
+            for scalar in list_scalars:
+                parcel_dict[method][region][scalar] = {}
+            
+        FA, MD, RD, AD = scalar_maps
+
+        # Get dictionary
+        data = getData(values[method], FA, MD, RD, AD)    
+        for region in list_regions:
+            for scalar in list_scalars:
+                
+                parcel_dict[method][region][scalar] = data[region][scalar]
+            
+    return parcel_dict
 
 def test_predict(model, data_paths):
 	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -136,14 +163,13 @@ def test_predict(model, data_paths):
 				
 				sub_data = {}
 
-				names_maps = list(["name", "meanFA", "stdFA", "meanMD", "stdMD", "meanRD", "stdRD", "meanAD", "stdAD"])
-				scalars_values = list([scalar_statistics[0], scalar_statistics[1], scalar_statistics[2], scalar_statistics[3], scalar_statistics[4], scalar_statistics[5], scalar_statistics[6], scalar_statistics[7]])
-				
-				subjects = []
+				names_maps = list(["name", "FA", "stdFA", "MD", "stdMD", "RD", "stdRD", "AD", "stdAD"])
+				scalars_values = list([name,scalar_statistics[0], scalar_statistics[1], scalar_statistics[2], scalar_statistics[3], scalar_statistics[4], scalar_statistics[5], scalar_statistics[6], scalar_statistics[7]])
 
-				for subj in subjects:
-					for i in range(0, len(names_maps)):
-						sub_data[names_maps[i]] = scalars_values[i]
+				for i in range(0, len(names_maps)):
+					sub_data[names_maps[i]] = scalars_values[i]
+
+				print(sub_data)
 
 				end = time.time()
 	

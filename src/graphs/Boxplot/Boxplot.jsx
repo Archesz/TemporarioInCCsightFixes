@@ -4,8 +4,7 @@ import Plot from 'react-plotly.js'
 function Boxplot(props) {
 
     let y0 = props.roqs
-    let y1 = props.watershed
-    let y2 = props.cnn
+    let y1 = props.cnn
 
     let data = [{
             y: y0,
@@ -15,16 +14,11 @@ function Boxplot(props) {
         }, {
             y: y1,
             type: "box",
-            name: "Watershed",
-            marker: {color: "#E65C40"}
-        }, {
-            y: y2,
-            type: "box",
             name: "CNN",
-            marker: {color: "#3A3A3A"}        
-        }
+            marker: {color: "#E65C40"}
+        },
     ]
-
+    
     let layout = {
                 title: props.title, height: 420, width: props.width, margin: {t: 40, l: 50, r: 10}, legend: { orientation: "h" },
                 plot_bgcolor: '#E5ECF6',

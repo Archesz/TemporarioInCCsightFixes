@@ -74,11 +74,9 @@ def ajustarDataFrame(subjects):
 # Chama a função para ler os arquivos CSV e criar o DataFrame
 subjects = read_csv_files(folder_mri)
 
-print(subjects)
-
 #subjects = ajustarDataFrame(subjects)
 
 try:
-    list_to_json(subjects, "data.json")
+    list_to_json(subjects, "./src/data/data.json")
 except:
     print("Erro.")
