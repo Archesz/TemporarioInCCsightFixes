@@ -403,5 +403,5 @@ def get_segm(data_paths):
     subjects = {"Names": names, "FA": meanFAList, "FA StdDev": stdFAList, "MD": meanMDList, "MD StdDev": stdMDList, "RD": meanRDList, "RD StdDev": stdRDList, "AD": meanADList, "AD StdDev": stdADList, "Time": times}
 
     df = pd.DataFrame(subjects)
-    df.to_csv("./data/roqs_based.csv", sep=";")
+    # df.to_csv("./data/roqs_based.csv", sep=";")
     df.to_csv("./csvs/roqs_based.csv", sep=";")

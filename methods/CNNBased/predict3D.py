@@ -189,7 +189,7 @@ def test_predict(model, data_paths):
 		
 		# adjust_dict_parcellations_statistics(parcellationsList)
 		df = pd.DataFrame(subjects)
-		df.to_csv("./data/cnn_based.csv", sep=";")
+		# df.to_csv("./data/cnn_based.csv", sep=";")
 		df.to_csv("./csvs/cnn_based.csv", sep=";")
 
 	return vol_data, test_outputs, pos_process, vol_data_affine
