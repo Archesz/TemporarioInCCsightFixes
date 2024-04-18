@@ -381,8 +381,6 @@ def get_segm(data_paths):
             for i in range(0, len(names_maps)):
                 sub_data[names_maps[i]] = scalars_values[i]
 
-            print(sub_data)
-
             # Salvando os Dados
             canvas = np.zeros(wFA_v.shape, dtype='int32')
             canvas[fissure, :, :] = segmentation
@@ -393,8 +391,10 @@ def get_segm(data_paths):
             end = time.time()
             time_total = round(end - start, 2)
             times.append(time_total)
-            print(parcellationsList)
             gm.adjust_dict_parcellations_statistics(parcellationsList, sub_data, data_path)
+            df_ajust = pd.read_csv(f"{data_path}/inCCsight/roqs_based.csv", sep=';')
+            first_row = df_ajust.iloc[[0]]
+            first_row.to_csv(f"{data_path}/inCCsight/roqs_based.csv", sep=';', index=False)
 
         except:
             print(f"{data_path} Failed.")

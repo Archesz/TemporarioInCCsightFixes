@@ -12,7 +12,7 @@ import pandas as pd
 import time
 
 def adjust_dict_parcellations_statistics(data, subject_data, data_path):
-    print
+    
     methods = list(data.keys())
     subjects = list(data[methods[0]].keys())
     methods_parc = list(data[methods[0]][subjects[0]])
@@ -30,7 +30,7 @@ def adjust_dict_parcellations_statistics(data, subject_data, data_path):
         
         df_sub = pd.DataFrame(subject_list)
         df_sub.to_csv(f"{data_path}/inCCsight/cnn_based.csv", sep=";")
-
+	
 def parcellations_dfs_dicts(scalar_maps, values):
     list_methods = ['Witelson', 'Hofer', 'Chao', 'Cover', 'Freesurfer']
     list_regions = ['P1', 'P2', 'P3', 'P4', 'P5']
@@ -113,6 +113,12 @@ def test_predict(model, data_paths):
 				pos_process = get_post_processed_cc3d(test_outputs)
 				pos_process_save = pos_process.numpy()
 
+				save_path = os.path.join(data_path, 'inCCsight')
+
+				# Create folder
+				if not os.path.exists(save_path):
+					os.mkdir(save_path)
+
 				dipy.io.peaks.save_nifti(os.path.join(data_path, "inCCsight/cnnBased.nii.gz"), pos_process_save, vol_data_affine, hdr = None )
 
 				# 2D
@@ -179,6 +185,9 @@ def test_predict(model, data_paths):
 
 				adjust_dict_parcellations_statistics(parcellationsList, sub_data, data_path)
 
+				df_ajust = pd.read_csv(f"{data_path}/inCCsight/cnn_based.csv", sep=';')
+				first_row = df_ajust.iloc[[0]]
+				first_row.to_csv(f"{data_path}/inCCsight/cnn_based.csv", sep=';', index=False)
 			except:
 				print(f"Erro com: {data_path}")
 				continue
